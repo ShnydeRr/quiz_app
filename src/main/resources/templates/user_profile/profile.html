@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        header {
+            background-color: #343a40;
+            padding: 1rem 0;
+            color: white;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .profile-info {
+            margin-top: 40px;
+        }
+        .profile-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>User Profile</h1>
+        <nav>
+            <a href="/user/update" class="btn btn-primary">Update</a>
+            <a href="/logout" class="btn btn-primary">Logout</a>
+            <a href="/user/quizzes/create" class="btn btn-primary">Quiz</a>
+            <a href="/user/quizzes/my_quizzes" class="btn btn-primary">My Quiz</a>
+            <a href="/user/home" class="btn btn-primary">Go to Quiz Home</a>
+
+
+        </nav>
+    </header>
+
+    <!-- Main Profile Section -->
+    <main class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="profile-card p-4 mt-5">
+                    <h2 class="mb-4 text-center">Profile Details</h2>
+                    <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+                    <p><strong>First Name:</strong> <span th:text="${user.firstname}"></span></p>
+                    <p><strong>Last Name:</strong> <span th:text="${user.lastname}"></span></p>
+                    <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

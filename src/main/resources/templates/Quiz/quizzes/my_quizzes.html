@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Quizzes</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Comic Sans MS', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 600px;
+            text-align: center;
+        }
+        .quiz-header {
+            background-color: #3b5998;
+            color: white;
+            border-radius: 10px 10px 0 0;
+            padding: 10px 0;
+            font-size: 24px;
+        }
+        .list-group-item {
+            font-size: 18px;
+            padding: 15px;
+            text-align: left;
+            border: none;
+            border-bottom: 1px solid #ddd;
+        }
+        .list-group-item a {
+            text-decoration: none;
+            color: #3b5998;
+        }
+        .btn-primary {
+            background-color: #3b5998;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #2d4373;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">My Quizzes</div>
+        <ul class="list-group mt-3">
+            <li class="list-group-item" th:each="quiz : ${quizzes}">
+                <a th:href="@{/user/quizzes/{id}(id=${quiz.id})}" th:text="${quiz.title}">Quiz Title</a>
+            </li>
+        </ul>
+        <a href="/user/quizzes/create" class="btn btn-primary mt-3">Create New Quiz</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

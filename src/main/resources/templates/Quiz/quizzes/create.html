@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Quiz</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            max-width: 50%;
+            font-family: 'Comic Sans MS', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 600px;
+            text-align: center;
+        }
+        .quiz-header {
+            background-color: #3b5998;
+            color: white;
+            border-radius: 10px 10px 0 0;
+            padding: 10px 0;
+            font-size: 24px;
+        }
+        .form-label {
+            margin-top: 10px;
+            font-size: 16px;
+            text-align: left;
+            color: #333;
+        }
+        .btn-primary, .btn-success, .btn-secondary {
+            background-color: #3b5998;
+            border: none;
+            font-size: 14px;
+        }
+        .btn-primary:hover, .btn-success:hover, .btn-secondary:hover {
+            background-color: #2d4373;
+        }
+    </style>
+</head>
+<body>
+<div class="quiz-container" >
+    <div class="quiz-header">Create a New Quiz</div>
+    <form th:action="@{/user/quizzes/create}" th:object="${quizDto}" method="post" id="quizForm">
+        <div class="mb-3">
+            <label for="title" class="form-label">Quiz Title</label>
+            <input type="text" class="form-control" id="title" th:field="*{title}" required>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title is required.</div>
+        </div>
+
+        <div id="questionsContainer">
+            <div class="question mb-3">
+                <label class="form-label">Question 1</label>
+                <input type="text" class="form-control" th:field="*{questions[0].questionText}" required>
+                <div class="answers" id="answersContainer0">
+                    <label class="form-label">Answer 1</label>
+                    <input type="text" class="form-control" th:field="*{questions[0].answers[0].answerText}" required>
+                    <div class="mt-2">
+                        <input type="checkbox" th:field="*{questions[0].answers[0].correct}"> Correct Answer
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary mt-2" onclick="addAnswer(0)">Add Answer</button>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary mt-2" onclick="addQuestion()">Add Question</button>
+        <button type="submit" class="btn btn-success mt-2">Submit Quiz</button>
+    </form>
+</div>
+
+<script>
+    let questionCount = 1; // Start from the first question
+    let answerCounts = [1]; // Track the number of answers for each question
+
+    function addQuestion() {
+        questionCount++;
+        answerCounts.push(1); // Initialize answer count for the new question
+        const questionHtml = `
+            <div class="question mb-3">
+                <label class="form-label">Question ${questionCount}</label>
+                <input type="text" class="form-control" name="questions[${questionCount - 1}].questionText" required>
+                <div class="answers" id="answersContainer${questionCount - 1}">
+                    <label class="form-label">Answer 1</label>
+                    <input type="text" class="form-control" name="questions[${questionCount - 1}].answers[0].answerText" required>
+                    <div class="mt-2">
+                        <input type="checkbox" name="questions[${questionCount - 1}].answers[0].correct"> Correct Answer
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary mt-2" onclick="addAnswer(${questionCount - 1})">Add Answer</button>
+            </div>
+        `;
+        $('#questionsContainer').append(questionHtml);
+    }
+
+    function addAnswer(questionIndex) {
+        answerCounts[questionIndex]++; // Increment answer count for the specific question
+        const answerHtml = `
+            <label class="form-label">Answer ${answerCounts[questionIndex]}</label>
+            <input type="text" class="form-control" name="questions[${questionIndex}].answers[${answerCounts[questionIndex] - 1}].answerText" required>
+            <div class="mt-2">
+                <input type="checkbox" name="questions[${questionIndex}].answers[${answerCounts[questionIndex] - 1}].correct"> Correct Answer
+            </div>
+        `;
+        $(`#answersContainer${questionIndex}`).append(answerHtml);
+    }
+</script>
+
+</body>
+</html>

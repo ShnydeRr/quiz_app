@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 5% auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            border-color: #0056b3;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 0, 255, 0.1);
+        }
+        .form-group .error {
+            color: #e74c3c;
+            font-size: 0.875em;
+        }
+        .form-group .success {
+            color: #2ecc71;
+            font-size: 0.875em;
+        }
+        .form-group .error, .form-group .success {
+            margin-top: 5px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Your Account</h1>
+        <!-- Display success or error messages -->
+        <div th:if="${success}" class="success" th:text="${success}"></div>
+        <div th:if="${error}" class="error" th:text="${error}"></div>
+
+        <form action="#" th:action="@{/register}" th:object="${userDto}" method="post">
+            <!-- CSRF Token -->
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            
+            <!-- Username -->
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" th:field="*{username}" placeholder="Enter your username" required>
+                <div th:if="${#fields.hasErrors('username')}" class="error" th:errors="*{username}"></div>
+            </div>
+
+            <!-- First Name -->
+            <div class="form-group">
+                <label for="firstname">First Name</label>
+                <input type="text" id="firstname" th:field="*{firstname}" placeholder="Enter your first name" required>
+                <div th:if="${#fields.hasErrors('firstname')}" class="error" th:errors="*{firstname}"></div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input type="text" id="lastname" th:field="*{lastname}" placeholder="Enter your last name" required>
+                <div th:if="${#fields.hasErrors('lastname')}" class="error" th:errors="*{lastname}"></div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" th:field="*{email}" placeholder="Enter your email" required>
+                <div th:if="${#fields.hasErrors('email')}" class="error" th:errors="*{email}"></div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" th:field="*{password}" placeholder="Enter your password" required>
+                <div th:if="${#fields.hasErrors('password')}" class="error" th:errors="*{password}"></div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" th:field="*{confirmPassword}" placeholder="Confirm your password" required>
+                <div th:if="${#fields.hasErrors('confirmPassword')}" class="error" th:errors="*{confirmPassword}"></div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn">Register</button>
+        </form>
+    </div>
+</body>
+</html>
