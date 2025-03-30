@@ -32,7 +32,9 @@ public class SecurityConfig {
                 .requestMatchers("/user/**").hasAuthority("normal_user")
                 // Pages accessible by super_user
                 .requestMatchers("/admin/**").hasAuthority("super_user")
-                .requestMatchers("/quiz", "/submit-quiz").authenticated()  // Only authenticated users can take the quiz
+                      // Pages accessible by responsable (if needed)
+                .requestMatchers("/responsable/**").hasAuthority("responsable_user")
+            
 
                 .anyRequest().authenticated()  // All other pages require authentication
             )

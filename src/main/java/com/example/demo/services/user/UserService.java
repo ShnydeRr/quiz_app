@@ -6,8 +6,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.models.Dto.user.UserDto;
 import com.example.demo.models.User;
+import com.example.demo.models.Dto.user.UserDto;
 import com.example.demo.repositories.UserRepository;
 @Service
 public class UserService {
@@ -27,12 +27,14 @@ public class UserService {
         user.setEmail(userDTO.getEmail());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
          // Assign role based on email domain
-        if (userDTO.getEmail().endsWith("@admin.com")) {
+         if (userDTO.getEmail().endsWith("@admin.com")) {
             user.setRole("super_user");
+        } else if (userDTO.getEmail().endsWith("@responsable.com")) {
+            user.setRole("responsable_user");
         } else {
             user.setRole("normal_user");
         }
-
+        
         
         userRepository.save(user);
     }

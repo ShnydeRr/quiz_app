@@ -20,4 +20,12 @@ public class adminService {
     public void deleteUserById(Long userId) {
         userRepository.deleteById(userId);
     }
+    public boolean userExists(Long userId) {
+        return userRepository.existsById(userId);
+    }
+
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId).orElse(null);
+    }
+    
 }

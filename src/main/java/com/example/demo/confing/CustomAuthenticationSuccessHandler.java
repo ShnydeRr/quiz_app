@@ -31,9 +31,13 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             String email = user.getEmail();
             if (email != null && email.endsWith("@admin.com")) {
                 response.sendRedirect("/admin/profile");
-            } else {
-                response.sendRedirect("/user/profile");
+            } // Check if the user is a responsable
+            else if (email != null && email.endsWith("@responsable.com")) {
+                response.sendRedirect("/responsable/profile");
             }
+                else {
+                    response.sendRedirect("/user/profile");
+                }
         } else {
             response.sendRedirect("/login?error");
         }

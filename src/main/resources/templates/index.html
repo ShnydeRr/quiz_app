@@ -30,16 +30,41 @@
                         <a class="nav-link" href="/login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/register">Register</a>
-                    </li>
-                    <li class="nav-item"></li>
-                        <a class="nav-link" href="/logout   ">logout</a>
+                        <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 </ul>
             </div>
         </div>
+        
+        <!-- Register link, hidden by default -->
+        <div id="adminRegister" class="container-fluid" style="display: none;">
+            <a href="/register" class="nav-link">Register</a>
+        </div>
     </nav>
-
+    
+    <script>
+        // Function to check the password and display the Register link if correct
+        function checkPassword(event) {
+            event.preventDefault(); // Prevent the default link behavior
+    
+            // Prompt the user for the password
+            var password = prompt("Please enter the admin password:");
+    
+            // Check if the password matches the admin password ("0011")
+            if (password === "0011") {
+                // If correct, reveal the hidden Register link
+                window.location.href = "/register";
+            } else {
+                // If incorrect, show an error message
+                alert("Incorrect password. You cannot access the registration page.");
+            }
+        }
+    
+        // Add the onclick event listener to the Register link to invoke the password check
+        document.querySelector("a.nav-link[href='/register']").addEventListener('click', checkPassword);
+    </script>
+    
+    
     <!-- Hero Section -->
     <header class="bg-primary text-white text-center py-5">
         <div class="container">
