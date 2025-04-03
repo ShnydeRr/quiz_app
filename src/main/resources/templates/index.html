@@ -41,7 +41,18 @@
             <a href="/register" class="nav-link">Register</a>
         </div>
     </nav>
-    
+    <script>
+        window.onload = function() {
+            let name = prompt("Say Hello! What is your name?");
+            if (name) {
+                document.getElementById("message").innerText = "Hello, " + name + "!";
+            } else {
+                document.getElementById("message").innerText = "Hello, Guest!";
+            }
+        };
+    </script>
+    <h1 id="message">Hello!</h1>
+
     <script>
         // Function to check the password and display the Register link if correct
         function checkPassword(event) {

@@ -9,6 +9,7 @@ public class HomeController {
     // Serve the home page
     @GetMapping("/")
     public String home() {
+        
         return "index"; // Refers to index.html in src/main/resources/templates
     }
 
